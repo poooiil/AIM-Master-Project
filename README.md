@@ -3,4 +3,4 @@ Machine Learning for Media Production Final Project
 
 
 ## Abstract
- Music-driven motion generation has attracted increasing attention, yet conducting remains underexplored despite its central role in musical communication. We address this gap with a focus on choral conducting. We introduce Maestro3D, a large-scale 3D dataset of professional performances, and propose a beat-aware diffusion framework enhanced by a novel phase-based beat representation that explicitly encodes rhythmic structure. Both quantitative and qualitative evaluations show that our approach achieves superior accuracy, realism, and synchronization compared to existing methods.
+Music-driven motion generation has seen growing interest, while conducting remains less explored. We study this task in the context of choral repertoire. Our method uses a phase-based beat cue that locates each frame within the current beat and a diffusion model conditioned on musical features to promote timing consistency and natural upper-body motion. Evaluations on held-out pieces indicate clearer beat alignment and plausible gestures compared with representative baselines.
