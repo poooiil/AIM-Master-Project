@@ -7,4 +7,5 @@ Music-driven motion generation has seen growing interest, while conducting remai
 
 
 ## Dataset
+使用时把里面的所有npy放到demo文件里
 https://drive.google.com/drive/folders/1x-oST6VXu-AKbwYFuMaPwcB28GCe0rOg?usp=sharing
