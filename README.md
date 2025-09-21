@@ -15,3 +15,7 @@ https://drive.google.com/file/d/1vTD9s6JJV9mT7WieeuiGyGrNK6AX0d4l/view?usp=shari
 
 body_models/smplh/SMPLH_MALE.pkl
 https://drive.google.com/file/d/1hMDRkFnSqTQTokeKdojEA38FbsvaQEQi/view?usp=sharing
+
+body_models/smpl/SMPL_NEUTRAL.pkl
+https://drive.google.com/file/d/1jp3ZquJxN9944JwAq9a7c00jbE12WKH0/view?usp=sharing
+
