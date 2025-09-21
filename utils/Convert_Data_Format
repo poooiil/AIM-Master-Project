@@ -1,0 +1,132 @@
+import numpy as np
+import os
+import json
+from scipy.spatial.transform import Rotation
+
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+from mpl_toolkits.mplot3d import Axes3D 
+
+joint_connections = [(0, 1),(0, 2),(1, 4),(2, 5),(4, 7),(5, 8),(8, 11),(7, 10),(0, 3),(3, 6),(6, 9),(9, 13),
+                     (9, 14),(9, 12),(12, 15),(14, 17),(17, 19),(19, 21),(21, 23),(13, 16),(16, 18),(18, 20),(20, 22)]
+
+
+
+
+def rotations_to_vectors(rotations):
+    """
+    将旋转矩阵转换为旋转向量
+    rotations: 形状为 [帧数, 关节点数, 3, 3] 的旋转矩阵数组
+    """
+    num_frames, num_joints, _, _ = rotations.shape
+    rotation_vectors = np.zeros((num_frames, num_joints, 3))
+
+    for frame_idx in range(num_frames):
+        for joint_idx in range(num_joints):
+            rotation = Rotation.from_matrix(rotations[frame_idx, joint_idx])
+            rotation_vector = rotation.as_rotvec()
+            rotation_vectors[frame_idx, joint_idx] = rotation_vector
+
+    return rotation_vectors
+
+
+
+
+
+def Multi_Person_Json_Load(path):
+    """
+    Return: 两个人的序列的动作信息
+    """
+    left_person_motions = []
+    right_person_motions = []
+    with open(path) as f:
+        file = json.load(f)
+        length = len(file['Feature'][0])
+        for i in range(length):
+            # print("==============当前是第{}个============".format(i))
+            # print(file['Feature'][0][i])
+            # print(file['Meta'])
+            dic_i = json.loads(file['Feature'][0][i])
+            # print(len(dic_i['Characters']['Left_Person']))
+            left_person_motions.append(dic_i['Characters']['Left_Person'])
+            right_person_motions.append(dic_i['Characters']['Right_Person'])
+    f.close()
+    return np.array(left_person_motions), np.array(right_person_motions)
+
+
+
+
+def normalize(v):
+    norm = np.linalg.norm(v)
+    if norm == 0:
+        return v
+    return v / norm
+
+
+def rotation_matrix_from_vectors(vec1, vec2):
+    a, b = normalize(vec1), normalize(vec2)
+    v = np.cross(a,b)
+    c = np.dot(a,b)
+    s = np.linalg.norm(v)
+    kmat = np.array([[0, -v[2], v[1]], [v[2], 0, -v[0]], [-v[1], v[0], 0]])
+
+    rotation_matrix = np.eye(3) + kmat + kmat.dot(kmat) * ((1 - c) / (s ** 2))
+    return rotation_matrix
+
+def calculate_skeleton_rotations(skeleton_frames):
+    """
+    计算每一帧中每个关节点的旋转矩阵
+    skeleton_frames: 形状为 [帧数, 关节点数, 坐标数] 的数组
+    """
+    num_frames, num_joints, _ = skeleton_frames.shape
+
+    # 存储旋转矩阵的列表
+    rotations = np.zeros((num_frames, num_joints, 3, 3))
+
+    for frame_idx in range(num_frames-1):
+        for joint_idx, (start_joint, end_joint) in enumerate(joint_connections):
+            vec1 = skeleton_frames[0, end_joint] - skeleton_frames[0, start_joint]
+            vec2 = skeleton_frames[frame_idx+1, end_joint] - skeleton_frames[frame_idx+1, start_joint]
+            rotation_matrix = rotation_matrix_from_vectors(vec1, vec2)
+            # 视为end_joint的旋转矩阵
+            rotations[frame_idx, end_joint] = rotation_matrix 
+    return rotations
+
+
+
+
+
+def update_frame(num, skeleton_frames, rotation_vectors, lines):
+    # 计算每个joint的旋转矩阵，然后从第0帧开始计算
+
+
+
+
+file_path = "D:\Code\priorMDM-main\dataset\movie_pos_outputs_all_frames\Top Gun\\5.json"
+p1, p2 = Multi_Person_Json_Load(file_path)
+print(p1.shape) # (Frames, 24, 3)
+P1_Rmatrix = calculate_skeleton_rotations(p1) # (Frames, 24, 3, 3)
+print(P1_Rmatrix.shape)
+P1_Rvector = rotations_to_vectors(P1_Rmatrix)
+print(P1_Rvector.shape)
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+skeleton_frames = p1
+
+# 创建线条对象
+lines = [ax.plot([skeleton_frames[0, i, 0], skeleton_frames[0, i+1, 0]],
+                 [skeleton_frames[0, i, 1], skeleton_frames[0, i+1, 1]],
+                 [skeleton_frames[0, i, 2], skeleton_frames[0, i+1, 2]])[0] for i in range(23)]
+
+# 设置坐标轴范围
+ax.set_xlim([min(skeleton_frames[:, :, 0].flatten()), max(skeleton_frames[:, :, 0].flatten())])
+ax.set_ylim([min(skeleton_frames[:, :, 1].flatten()), max(skeleton_frames[:, :, 1].flatten())])
+ax.set_zlim([min(skeleton_frames[:, :, 2].flatten()), max(skeleton_frames[:, :, 2].flatten())])
+
+# 创建动画
+ani = FuncAnimation(fig, update_frame, frames=len(skeleton_frames), fargs=(skeleton_frames, P1_Rvector[:,1:,:], lines),
+                    interval=50, blit=False)
+
+plt.show()
