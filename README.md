@@ -12,3 +12,6 @@ https://drive.google.com/drive/folders/1x-oST6VXu-AKbwYFuMaPwcB28GCe0rOg?usp=sha
 
 pth文件，放到weight文件夹里
 https://drive.google.com/file/d/1vTD9s6JJV9mT7WieeuiGyGrNK6AX0d4l/view?usp=sharing
+
+body_models/smplh/SMPLH_MALE.pkl
+https://drive.google.com/file/d/1hMDRkFnSqTQTokeKdojEA38FbsvaQEQi/view?usp=sharing
