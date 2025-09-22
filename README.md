@@ -1,6 +1,9 @@
 # 🎼 Beat-Aware Diffusion for Music-Driven Choral Conducting Motion Generation
 
 **Author:** Shang Ni
+
+
+
 **Supervisor:** Hammadi Nait-Charif
 
 ![teaser](fig/model.png)  
