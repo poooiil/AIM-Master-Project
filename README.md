@@ -1,6 +1,6 @@
 # 🎼 Beat-Aware Diffusion for Music-Driven Choral Conducting Motion Generation
 
-![teaser](fig/mdoel.png)  
+![teaser](fig/model.png)  
 *Music-driven motion generation has seen growing interest, while conducting remains less explored. We study this task in the context of choral repertoire. Our method uses a phase-based beat cue that locates each frame within the current beat and a diffusion model conditioned on musical features to promote timing consistency and natural upper-body motion. Evaluations on held-out pieces indicate clearer beat alignment and plausible gestures compared with representative baselines.*  
 
 ---
