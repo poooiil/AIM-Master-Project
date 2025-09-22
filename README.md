@@ -8,9 +8,11 @@
 ## 📂 Dataset & Pretrained Models
 
 ### 1. Our Dataset  
+We introduce a publicly available corpus for music-driven conducting motion with a focus on choral conducting. The dataset comprises approximately 21.9 hours of professionally recorded conductor performances spanning 663 distinct pieces.
 Download all `.npy` files and place them into the `demo/` folder:  
 🔗 [Google Drive Link](https://drive.google.com/drive/folders/1x-oST6VXu-AKbwYFuMaPwcB28GCe0rOg?usp=sharing)
 
+![teaser](fig/dataset.png) 
 ---
 
 ### 2. Pretrained Weights  
