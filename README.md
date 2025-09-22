@@ -7,21 +7,25 @@
 
 ## 📂 Dataset & Pretrained Models
 
-### 1. Maestro3D Dataset  
+### 1. Our Dataset  
 Download all `.npy` files and place them into the `demo/` folder:  
 🔗 [Google Drive Link](https://drive.google.com/drive/folders/1x-oST6VXu-AKbwYFuMaPwcB28GCe0rOg?usp=sharing)
 
+---
 
-## Dataset
-使用时把里面的所有npy放到demo文件里
-https://drive.google.com/drive/folders/1x-oST6VXu-AKbwYFuMaPwcB28GCe0rOg?usp=sharing
+### 2. Pretrained Weights  
+Download the pretrained model (`.pth`) and put it in the `weight/` folder:  
+🔗 [Google Drive Link](https://drive.google.com/file/d/1vTD9s6JJV9mT7WieeuiGyGrNK6AX0d4l/view?usp=sharing)
 
-pth文件，放到weight文件夹里
-https://drive.google.com/file/d/1vTD9s6JJV9mT7WieeuiGyGrNK6AX0d4l/view?usp=sharing
+---
 
-body_models/smplh/SMPLH_MALE.pkl
-https://drive.google.com/file/d/1hMDRkFnSqTQTokeKdojEA38FbsvaQEQi/view?usp=sharing
+### 3. Body Models  
 
-body_models/smpl/SMPL_NEUTRAL.pkl
-https://drive.google.com/file/d/1jp3ZquJxN9944JwAq9a7c00jbE12WKH0/view?usp=sharing
+- **SMPL-H (male)** → place in `body_models/smplh/`  
+  🔗 [Download Link](https://drive.google.com/file/d/1hMDRkFnSqTQTokeKdojEA38FbsvaQEQi/view?usp=sharing)
+
+- **SMPL (neutral)** → place in `body_models/smpl/`  
+  🔗 [Download Link](https://drive.google.com/file/d/1jp3ZquJxN9944JwAq9a7c00jbE12WKH0/view?usp=sharing)
+
+
 
